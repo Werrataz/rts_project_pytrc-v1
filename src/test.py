@@ -67,7 +67,25 @@ input_size = X_train.shape[1]
 num_classes = len(label_encoder.classes_)
 model = KeystrokeNet(input_size, num_classes)
 
-print(model)
+# Définir la fonction de perte et l'optimiseur
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
+# Entraîner le modèle
+num_epochs = 20
+for epoch in range(num_epochs):
+    model.train()
+    running_loss = 0.0
+    for inputs, labels in train_loader:
+        optimizer.zero_grad()
+        outputs = model(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+        running_loss += loss.item()
+    
+    print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss/len(train_loader):.4f}')
+
 
 # Mettre le modèle en mode évaluation
 model.eval()
