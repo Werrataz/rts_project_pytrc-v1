@@ -1,3 +1,4 @@
+"""Encienne version
 import time
 import csv
 from pynput import keyboard
@@ -76,3 +77,6 @@ if __name__ == "__main__":
 
 # Trouver un moyen de récupérer les données (peut-être en les enregistrant sur un csv sur un drive plutôt qu'en local ?)
 # Voir avec l'équipe qui était en charge de ça s'ils ont compris la structure des données de la bdd d'origine, et s'ils ont eu le temps de finir le logiciel de keystroke. S'ils ont pas commencé, prendre la main là dessus ?
+"""
+
+# Nouvelle version en cours par Paul & Alexis
