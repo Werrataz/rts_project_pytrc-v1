@@ -2,7 +2,7 @@
 
 ## Comment utiliser ce projet ?
 
-Pour l'utiliser, vous devez d'abord cloner ce projet depuis GitHub. Assurez-vous que python est bien installé, et exécutez la commande suivante dans votre terminal : 
+Pour l'utiliser, vous devez d'abord cloner ce projet depuis GitHub. Assurez-vous que python est bien installé, et exécutez la commande suivante dans votre terminal, en vous positionnant à l'emplacement dans lequel vous voulez installer le projet (cette commande créra un sous-dossier avec le code du projet) : 
 
 ```bash
 git clone https://github.com/Werrataz/rts_project_pytrc-v1.git
