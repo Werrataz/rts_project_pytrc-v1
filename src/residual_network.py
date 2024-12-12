@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader, TensorDataset
 import torch.nn as nn
 import torch.nn.functional as F
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import seaborn as sns
 
 # Charger les données depuis un fichier CSV
 data = pd.read_csv('Pi_IKD_Database.csv')
@@ -99,7 +100,8 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 # Entraîner le modèle
-num_epochs = 20
+num_epochs = 40
+losses = []
 for epoch in range(num_epochs):
     model.train()
     running_loss = 0.0
@@ -110,7 +112,7 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
         running_loss += loss.item()
-    
+    losses.append(running_loss / len(train_loader))
     print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss/len(train_loader):.4f}')
 
 # Mettre le modèle en mode évaluation
@@ -132,5 +134,12 @@ print(f'Accuracy: {accuracy:.4f}')
 # Afficher le rapport de classification
 print(classification_report(y_test_np, predicted_np, target_names=label_encoder.classes_, labels=range(len(label_encoder.classes_))))
 
+import matplotlib.pyplot as plt
 
-# Sur orange3, seule difficulté pour la manipulation : transformer les étiquettes en une classe "discrit" (ne pas les laisser en string). 
+plt.figure(figsize=(10, 5))
+plt.plot(range(1, num_epochs + 1), losses, marker='o')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.title('Training Loss Over Epochs')
+plt.grid(True)
+plt.show()
