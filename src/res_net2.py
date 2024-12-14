@@ -69,9 +69,9 @@ class KeystrokeResNet(nn.Module):
         super(KeystrokeResNet, self).__init__()
         self.fc1 = nn.Linear(input_size, 128)
         self.bn1 = nn.BatchNorm1d(128)
-        self.res1 = ResidualBlock(128, 256)
-        self.res2 = ResidualBlock(256, 256)
-        self.res3 = ResidualBlock(256, 128)
+        self.res1 = ResidualBlock(128, 2048)
+        self.res2 = ResidualBlock(2048, 2048)
+        self.res4 = ResidualBlock(2048, 128)
         self.fc_out = nn.Linear(128, num_classes)
         self.dropout = nn.Dropout(0.2)
         
@@ -80,7 +80,8 @@ class KeystrokeResNet(nn.Module):
         x = self.dropout(x)
         x = self.res1(x)
         x = self.res2(x)
-        x = self.res3(x)
+        # x = self.res3(x)
+        x = self.res4(x)
         x = self.dropout(x)
         x = self.fc_out(x)
         return x
@@ -95,7 +96,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 # Entraîner le modèle
-num_epochs = 40
+num_epochs = 50
 losses = []
 for epoch in range(num_epochs):
     model.train()
