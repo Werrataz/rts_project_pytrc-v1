@@ -17,13 +17,9 @@ pip install -r requirements.txt
 
 Cette étape peut prendre un peu de temps.   
 
-## Lancer le projet
+## A propos 
 
-Une fois les dépendances installées, vous pouvez lancer le projet avec la commande suivante :
-
-```bash
-python src/test.py
-```
+Ce projet est réalisé dans le cadre du cursus de l'ENSEA. L'objectif de ce projet est de conscevoir, entrainer et évaluer les performances de différents modèles de machine learning sur une base de donnée biométrique, pour des tâches de classification supervisée.    
 
 ## Licence
 
