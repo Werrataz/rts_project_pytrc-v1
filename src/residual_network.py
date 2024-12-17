@@ -7,33 +7,22 @@ import torch.nn as nn
 import torch.nn.functional as F
 from utilities.evaluate import evaluate_and_get_complete_report
 
-# Charger les données depuis un fichier CSV
 data = pd.read_csv('Pi_IKD_Database.csv')
-# Au moment du chargement des données
 print("Shape du DataFrame:", data.shape)
 
-# Séparer les caractéristiques (features) et les étiquettes (labels)
 X = data.iloc[:, 1:].values  # Toutes les colonnes sauf la première (identifiant utilisateur)
 y = data.iloc[:, 0].values  # La première colonne (identifiant utilisateur)
 
-# Encoder les étiquettes si elles sont des chaînes de caractères
 label_encoder = LabelEncoder()
 y = label_encoder.fit_transform(y)
 
-# Après l'encodage
-print("Labels uniques après encodage:", len(set(y)))
-print("Classes encodées:", label_encoder.classes_)
-
-# Diviser les données en ensembles d'entraînement et de test
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
-# Convertir les données en tenseurs PyTorch
 X_train_tensor = torch.tensor(X_train, dtype=torch.float32)
 y_train_tensor = torch.tensor(y_train, dtype=torch.long)
 X_test_tensor = torch.tensor(X_test, dtype=torch.float32)
 y_test_tensor = torch.tensor(y_test, dtype=torch.long)
 
-# Créer des DataLoader pour l'entraînement et le test
 train_dataset = TensorDataset(X_train_tensor, y_train_tensor)
 test_dataset = TensorDataset(X_test_tensor, y_test_tensor)
 
@@ -48,7 +37,6 @@ class ResidualBlock(nn.Module):
         self.fc2 = nn.Linear(out_channels, out_channels)
         self.bn2 = nn.BatchNorm1d(out_channels)
         
-        # Skip connection si dimensions différentes
         self.shortcut = nn.Sequential()
         if in_channels != out_channels:
             self.shortcut = nn.Linear(in_channels, out_channels)
@@ -85,16 +73,13 @@ class KeystrokeResNet(nn.Module):
         x = self.fc_out(x)
         return x
 
-# Utilisation
 num_classes = len(label_encoder.classes_)
 input_size = X.shape[1]
 model = KeystrokeResNet(input_size, num_classes)
 
-# Définir la fonction de perte et l'optimiseur
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-# Entraîner le modèle
 num_epochs = 40
 losses = []
 for epoch in range(num_epochs):
