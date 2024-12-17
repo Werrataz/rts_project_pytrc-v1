@@ -5,7 +5,7 @@ import torch
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn as nn
 import torch.nn.functional as F
-from untils.evaluate import evaluate_and_get_complete_report
+from utilities.evaluate import evaluate_and_get_complete_report
 
 # Charger les données depuis un fichier CSV
 data = pd.read_csv('Pi_IKD_Database.csv')

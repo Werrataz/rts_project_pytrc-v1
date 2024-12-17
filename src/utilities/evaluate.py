@@ -14,15 +14,12 @@ def evaluate_and_get_complete_report(model, X_test_tensor, y_test_tensor, label_
     Returns:
     None
     """
-    # Mettre le modèle en mode évaluation
     model.eval()
 
-    # Faire des prédictions sur l'ensemble de test
     with torch.no_grad():
         outputs = model(X_test_tensor)
         _, predicted = torch.max(outputs, 1)
 
-    # Convertir les tenseurs en tableaux NumPy
     y_test_np = y_test_tensor.numpy()
     predicted_np = predicted.numpy()
 
