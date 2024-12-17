@@ -25,10 +25,6 @@ Une fois les dépendances installées, vous pouvez lancer le projet avec la comm
 python src/test.py
 ```
 
-## Ce qui marche dans le projet
-
-Ce projet est en cours. Le code 'residual_network.py' fonctionne avec le reste du projet, et a de bonnes performances. Les autres projets sont encore à améliorer. 
-
 ## Licence
 
 Ce projet est sous licence MIT.
